@@ -4,7 +4,7 @@
     {{ range .Pages }}
       <li>
         <div class="date">
-          {{ .Date.Format (default "Jan 2" .Site.Params.abbrDateFmt) }}
+          {{ .Date.Format (default "01-02" .Site.Params.abbrDateFmt) }}
         </div>
         <div class="title">
           <a href="{{ .RelPermalink }}">{{.Title }}</a>

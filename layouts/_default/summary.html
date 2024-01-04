@@ -1,9 +1,51 @@
+{{/*
+  Determine the reading time duration
+
+  Duration is calculated either
+    - automatically by Hugo
+    - by arithmetic using a user-provided reading speed
+    - by arithmetic using two user-provided reading speeds that elict min and
+      max durations
+*/}}
+{{ $duration := "" }}
+{{ $speedSingle := default 1 (.Param "readingspeed") }}
+{{ $speedMin := default 1 (.Param "readingspeedmin") }}
+{{ $speedMax := default 1 (.Param "readingspeedmax") }}
+{{ $durationSingle := math.Max 1 (div .WordCount $speedSingle) }}
+{{ $durationMin := math.Max 1 (div .WordCount $speedMax) }}
+{{ $durationMax := math.Max 1 (div .WordCount $speedMin) }}
+{{ $durationRange := cond
+  (eq $durationMin $durationMax)
+  $durationMin
+  (print $durationMin "-" $durationMax)
+}}
+{{ if .Params.readingSpeedMin | and .Params.readingSpeedMax }}
+  {{ $duration = $durationRange }}
+{{ else if .Params.readingSpeed }}
+  {{ $duration = $durationSingle }}
+{{ else if .Site.Params.readingSpeedMin | and .Site.Params.readingSpeedMax }}
+  {{ $duration = $durationRange }}
+{{ else if .Site.Params.readingSpeed }}
+  {{ $duration = $durationSingle }}
+{{ else }}
+  {{ $duration = .ReadingTime }}
+{{ end }}
+
 <article class="summary">
-  <a href="{{ .Permalink }}">
-    <h1 class="title">{{ .Title }}</h1>
-    {{ with .Params.subtitle }}<h3 class="subtitle">{{ . }}</h3>{{ end }}
-  </a>
-  {{ partial "postMeta.html" . }}
+  <div style="display: flex; align-items: baseline;">
+    <a href="{{ .Permalink }}">
+      <h1 class="title">{{ .Title }}</h1>
+      {{ with .Params.subtitle }}<h3 class="subtitle">{{ . }}</h3>{{ end }}
+    </a>
+    <div style="margin-left: 10px; font-style: italic;">
+      <strong>
+        <time>{{ .Date.Format (default "2006-01-02 15:04:05" .Site.Params.dateFmt) }}</time>
+      </strong>
+      {{ with .WordCount }}<span> • {{ . }} words</span>{{ end }}
+      {{ with .ReadingTime}}<span> • {{ $duration }} min</span>{{ end }}
+    </div>
+  </div>
+
   <div class="content">
     <p>{{ .Summary }}</p>
     {{ if .Truncated }}

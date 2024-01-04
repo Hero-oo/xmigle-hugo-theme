@@ -1,21 +1,43 @@
 @font-face {
-  font-family: 'Iosevka';
-  src: local('Iosevka'),
-    url('/fonts/iosevka-regular.woff2') format("woff2");
+  font-family: 'JetBrainsMono';
+  src: local('JetBrainsMono'),
+    url('/fonts/jetbrainsmono-regular.ttf') format("ttf");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Iosevka';
-  src: local('Iosevka'),
-    url('/fonts/iosevka-bold.woff2') format("woff2");
+  font-family: 'JetBrainsMono';
+  src: local('JetBrainsMono'),
+    url('/fonts/jetbrainsmono-bold.ttf') format("ttf");
   font-weight: bold;
   font-style: bold;
 }
 @font-face {
-  font-family: 'Iosevka';
-  src: local('Iosevka'),
-    url('/fonts/iosevka-oblique.woff2') format("woff2");
+  font-family: 'JetBrainsMono';
+  src: local('JetBrainsMono'),
+    url('/fonts/jetbrainsmono-italic.ttf') format("ttf");
+  font-weight: italic;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'MapleMono';
+  src: local('MapleMono'),
+    url('/fonts/maplemono-regular.woff2') format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'MapleMono';
+  src: local('MapleMono'),
+    url('/fonts/maplemono-bold.woff2') format("woff2");
+  font-weight: bold;
+  font-style: bold;
+}
+@font-face {
+  font-family: 'MapleMono';
+  src: local('MapleMono'),
+    url('/fonts/maplemono-italic.woff2') format("woff2");
   font-weight: italic;
   font-style: italic;
 }

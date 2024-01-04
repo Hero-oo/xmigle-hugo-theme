@@ -1,19 +1,24 @@
-<div class="post-meta">
+<div class="post-meta" style="font-style: italic;">
   <strong>
     <span>Posted on</span>
     <time>{{ .Date.Format (default "2006-01-02 15:04:05" .Site.Params.dateFmt) }}</time>
-    {{ with .Params.categories }}<span>in</span>{{ end }}
-    {{ range $key, $value := .Params.categories -}}
-      {{- if $key }}, {{ end }}
-      <a href="{{ "/categories/" | relLangURL }}{{ $value | urlize }}">{{ . }}</a>
-    {{- end }}
   </strong>
   {{ with .WordCount }}<span> • {{ . }} words</span>{{ end }}
-  {{ with .ReadingTime}}<span> • {{ . }} minute read</span>{{ end }}
+  {{ with .ReadingTime}}<span> • {{ . }} min</span>{{ end }}
   {{ if and .IsPage (ne .Date .Lastmod) }}
     <div>
       Last updated on
       <time>{{ .Lastmod.Format (default "2006-01-02 15:04:05" .Site.Params.dateFmt) }}</time>
+    </div>
+  {{ end }}
+
+  {{ with .Params.categories }}
+    <div>
+      <span>Categories:</span>
+      {{ range $key, $value := . -}}
+        {{- if $key }}, {{ end }}
+        <a href="{{ "/categories/" | relLangURL }}{{ $value | urlize }}">{{ . }}</a>
+      {{- end }}
     </div>
   {{ end }}
   {{ with .Params.tags }}
